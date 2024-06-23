@@ -1,0 +1,35 @@
+ import sys
+
+from datetime import datetime
+
+
+
+for line in sys.stdin:
+
+    data = line.strip().split("\t")
+
+    if len(data) == 6:
+
+        date, time, store, item, cost, payment = data
+
+        print(f"{datetime.now():%Y-%m-%d %H:%M:%S}\t{item}\t{cost}")  # Adjusted to current datetime format
+        from datetime import datetime, timedelta
+
+
+
+# Adding timedelta of 1 day
+
+print(datetime.now() + timedelta(days=1))
+
+
+
+# Subtracting 60 seconds
+
+print(datetime.now() - timedelta(seconds=60))
+
+
+
+# Adding 2 years
+
+print(datetime.now() + timedelta(days=365*2))
+from datetime import timedelta delta = timedelta(days=100, hours=10, minutes=13) print(delta)
