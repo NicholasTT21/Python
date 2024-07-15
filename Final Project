@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+class PersonalFinanceManager:
+    def __init__(self):
+        self.financial_data = pd.DataFrame(columns=['Date', 'Description', 'Category', 'Amount'])
+
+    def add_expense(self, date, description, category, amount):
+        self.financial_data = self.financial_data.append({
+            'Date': date,
+            'Description': description,
+            'Category': category,
+            'Amount': amount
+        }, ignore_index=True)
+
+    def view_financial_data(self):
+        return self.financial_data
+
+    def monthly_spending_summary(self):
+        monthly_summary = self.financial_data.groupby(self.financial_data['Date'].dt.strftime('%Y-%m'))['Amount'].sum()
+        return monthly_summary
+
+    def plot_monthly_spending(self):
+        monthly_summary = self.monthly_spending_summary()
+        monthly_summary.plot(kind='bar', xlabel='Month', ylabel='Total Amount', title='Monthly Spending')
+        plt.xticks(rotation=45)
+        plt.show()
+
+# Example usage:
+if __name__ == '__main__':
+    manager = PersonalFinanceManager()
+
+    # Adding sample expenses
+    manager.add_expense(pd.Timestamp('2024-07-01'), 'Groceries', 'Food', 200)
+    manager.add_expense(pd.Timestamp('2024-07-05'), 'Gas bill', 'Utilities', 50)
+    manager.add_expense(pd.Timestamp('2024-07-10'), 'Dinner out', 'Food', 100)
+    manager.add_expense(pd.Timestamp('2024-08-02'), 'Movie tickets', 'Entertainment', 50)
+
+    # Viewing financial data
+    print("Financial Data:")
+    print(manager.view_financial_data())
+
+    # Plotting monthly spending
+    manager.plot_monthly_spending()
